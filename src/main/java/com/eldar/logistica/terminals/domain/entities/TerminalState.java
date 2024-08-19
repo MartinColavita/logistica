@@ -1,21 +1,30 @@
 package com.eldar.logistica.terminals.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
+
 @Entity
+@Builder
+@AllArgsConstructor @NoArgsConstructor
 @Data
 public class TerminalState {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idTerminal;
+
+    @ManyToOne
+    @JoinColumn(name = "idTerminal", nullable = false)
+    private TerminalModels terminal;
+
     private String status;
     private Date date;
+
+
 
 }
