@@ -1,22 +1,41 @@
 package com.eldar.logistica.providers.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.eldar.logistica.delivery.domain.entities.DeliveryToEldar;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
+
 @Entity
+@Builder
+@AllArgsConstructor @NoArgsConstructor
 @Data
+@Table(name = "PurchaseOrders")
 public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idProvider;
-    private Long idDeliveryToEldar;
+
+    /** Muchas órdenes de compra (PurchaseOrder) están asociadas a un único proveedor  */
+    @ManyToOne
+    @JoinColumn(name = "providerId", nullable = false)
+    private Provider provider;
+
+    /** Muchas órdenes de compra (PurchaseOrder) están asociadas a un único deliveryToEldar  */
+    @ManyToOne
+    @JoinColumn(name = "deliveryToEldarId", nullable = false)
+    private DeliveryToEldar deliveryToEldar;
+
+    @Column(nullable = false)
     private Date estimatedTime;
-    private String state;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(nullable = false)
     private Date purchaseDate;
 }

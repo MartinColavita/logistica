@@ -1,5 +1,6 @@
 package com.eldar.logistica.terminals.domain.entities;
 
+import com.eldar.logistica.providers.domain.entities.PurchaseOrder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,14 +14,21 @@ import java.util.List;
 @Builder
 @AllArgsConstructor @NoArgsConstructor
 @Data
+@Table(name = "TerminalModels")
 public class TerminalModels {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String brand;
-    // TODO -> relacionar idOC con la tabla de ordenes de compra, ya que este es el id de la orden de compra
-    private Long idOC;
+
+    /** Muchos terminales (TerminalModels) están asociados a una única orden de compra (PurchaseOrder) */
+    @ManyToOne
+    @JoinColumn(name = "purchaseOrderId", nullable = false)
+    private PurchaseOrder purchaseOrder;
+
     private Long model;
+
     private String serie;
 
 

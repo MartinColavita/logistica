@@ -1,22 +1,39 @@
 package com.eldar.logistica.providers.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor @NoArgsConstructor
+@Table(name = "Reserves")
 public class Reserve {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String state;
-    private Long idCommerce;
+
+    @Column(nullable = false)
+    private String status;
+
+    /** Muchas reservas (Reserve) están asociadas a un único comercio  */
+    @ManyToOne
+    @JoinColumn(name = "commerceId", nullable = false)
+    private Commerce commerce;
+
+    @Column(nullable = false)
     private Long quantity;
-    private Long idProduct;
-    private String band;
+
+    @Column(nullable = false)
+    private Long productId;
+
+    @Column(nullable = false)
+    private String brand;
+
+    @Column(nullable = false)
     private Long model;
 
 }

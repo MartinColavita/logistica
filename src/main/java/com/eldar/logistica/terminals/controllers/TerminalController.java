@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -170,10 +172,10 @@ public class TerminalController {
                     )
             }
     )
-    public void deleteTerminal(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTerminal(@PathVariable Long id) {
         terminalsService.deleteTerminal(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
     @DeleteMapping("/state/{id}")
     @Operation(
@@ -188,8 +190,9 @@ public class TerminalController {
                     )
             }
     )
-    public void deleteTerminalState(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTerminalState(@PathVariable Long id) {
         terminalsService.deleteTerminalState(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

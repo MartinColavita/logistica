@@ -1,5 +1,6 @@
 package com.eldar.logistica.terminals.utils.mappers;
 
+import com.eldar.logistica.providers.domain.entities.PurchaseOrder;
 import com.eldar.logistica.terminals.domain.entities.*;
 import com.eldar.logistica.terminals.model.request.TerminalModelsRequestDTO;
 import com.eldar.logistica.terminals.model.request.TerminalStateRequestDTO;
@@ -13,16 +14,16 @@ public class MapperTerminals {
         return TerminalModelsResponseDTO.builder()
                 .id(terminal.getId())
                 .brand(terminal.getBrand())
-                .idOC(terminal.getIdOC())
+                .idOC(terminal.getPurchaseOrder().getId())
                 .model(terminal.getModel())
                 .serie(terminal.getSerie())
                 .build();
     }
 
-    public static TerminalModels toEntity(TerminalModelsRequestDTO dto) {
+    public static TerminalModels toEntity(TerminalModelsRequestDTO dto, PurchaseOrder purchaseOrder) {
         return TerminalModels.builder()
                 .brand(dto.getBrand())
-                .idOC(dto.getIdOC())
+                .purchaseOrder(purchaseOrder)
                 .model(dto.getModel())
                 .serie(dto.getSerie())
                 .build();
