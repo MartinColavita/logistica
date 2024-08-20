@@ -9,10 +9,7 @@ import java.sql.Date;
 @Data
 public class PurchaseOrderRequestDTO {
     private Long providerId;
-
-    // TODO -> asociar esto con el id de deliveryToEldar
     private Long deliveryToEldarId;
-
     private Date estimatedTime;
     private String status;
     private Date purchaseDate;
