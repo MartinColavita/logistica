@@ -1,5 +1,7 @@
 package com.eldar.logistica.terminals.services.impl;
 
+import com.eldar.logistica.providers.domain.entities.PurchaseOrder;
+import com.eldar.logistica.providers.domain.repositories.PurchaseOrderRepository;
 import com.eldar.logistica.terminals.domain.entities.TerminalModels;
 import com.eldar.logistica.terminals.domain.entities.TerminalState;
 import com.eldar.logistica.terminals.domain.repositories.TerminalModelsRepository;
@@ -24,6 +26,7 @@ public class TerminalsServiceImpl implements TerminalsService {
 
     private final TerminalModelsRepository terminalModelsRepository;
     private final TerminalStateRepository terminalStateRepository;
+    private final PurchaseOrderRepository purchaseOrderRepository;
 
 
 
@@ -58,8 +61,15 @@ public class TerminalsServiceImpl implements TerminalsService {
     @Override
     public TerminalModelsResponseDTO createTerminal(TerminalModelsRequestDTO terminalDTO) {
         try {
-            TerminalModels terminal = MapperTerminals.toEntity(terminalDTO);
+            // Obtener la instancia de PurchaseOrder usando el ID proporcionado en el DTO
+            PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(terminalDTO.getIdOC())
+                    .orElseThrow(() -> new EntityNotFoundException("PurchaseOrder not found"));
+
+            // Llamar al mapper y pasar la instancia de PurchaseOrder
+            TerminalModels terminal = MapperTerminals.toEntity(terminalDTO, purchaseOrder);
+
             TerminalModels savedTerminal = terminalModelsRepository.save(terminal);
+
             return MapperTerminals.toResponseDTO(savedTerminal);
         } catch (Exception e) {
             throw new RuntimeException("Error creating terminal", e);
@@ -88,12 +98,17 @@ public class TerminalsServiceImpl implements TerminalsService {
             TerminalModels terminal = terminalModelsRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Terminal not found"));
 
+            // Obtener la instancia de PurchaseOrder usando el ID proporcionado en el DTO
+            PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(terminalDTO.getIdOC())
+                    .orElseThrow(() -> new EntityNotFoundException("PurchaseOrder not found"));
+
             terminal.setBrand(terminalDTO.getBrand());
-            terminal.setIdOC(terminalDTO.getIdOC());
+            terminal.setPurchaseOrder(purchaseOrder); // Asignar instancia de PurchaseOrder
             terminal.setModel(terminalDTO.getModel());
             terminal.setSerie(terminalDTO.getSerie());
 
             TerminalModels updatedTerminal = terminalModelsRepository.save(terminal);
+
             return MapperTerminals.toResponseDTO(updatedTerminal);
         } catch (EntityNotFoundException e) {
             throw e;

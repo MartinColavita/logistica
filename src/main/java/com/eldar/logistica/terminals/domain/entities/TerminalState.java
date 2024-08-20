@@ -13,6 +13,7 @@ import java.sql.Date;
 @Builder
 @AllArgsConstructor @NoArgsConstructor
 @Data
+@Table(name = "TerminalStates")
 public class TerminalState {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,6 @@ public class TerminalState {
 
     private String status;
     private Date date;
-
 
 
 }
