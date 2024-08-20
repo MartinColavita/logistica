@@ -1,9 +1,14 @@
 package com.eldar.logistica.providers.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Builder
+@AllArgsConstructor @NoArgsConstructor
 @Data
 @Table(name = "Commerces")
 public class Commerce {

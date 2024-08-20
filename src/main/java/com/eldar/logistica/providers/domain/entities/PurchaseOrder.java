@@ -1,11 +1,18 @@
 package com.eldar.logistica.providers.domain.entities;
 
+import com.eldar.logistica.delivery.domain.entities.DeliveryToEldar;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Date;
 
 
 @Entity
+@Builder
+@AllArgsConstructor @NoArgsConstructor
 @Data
 @Table(name = "PurchaseOrders")
 public class PurchaseOrder {
@@ -18,9 +25,10 @@ public class PurchaseOrder {
     @JoinColumn(name = "providerId", nullable = false)
     private Provider provider;
 
-    //TODO -> relacionar esto con la tabla "Delivery to Eldar"
-    @Column(nullable = false)
-    private Long deliveryToEldarId;
+    /** Muchas órdenes de compra (PurchaseOrder) están asociadas a un único deliveryToEldar  */
+    @ManyToOne
+    @JoinColumn(name = "deliveryToEldarId", nullable = false)
+    private DeliveryToEldar deliveryToEldar;
 
     @Column(nullable = false)
     private Date estimatedTime;
