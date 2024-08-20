@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @AllArgsConstructor
-@RestController
 @Tag(name = "Providers", description = "API para administrar proveedores")
+@RestController
 @RequestMapping("/api/providers")
 public class ProvidersController {
 
     private final ProviderService providerService;
 
-
-    @GetMapping
+    // TODO -> implementar swagger
+    @GetMapping("/all")
     public ResponseEntity<List<ProviderResponseDTO>> getAllProviders() {
         return ResponseEntity.ok(providerService.getAllProviders());
     }
@@ -30,7 +30,7 @@ public class ProvidersController {
         return ResponseEntity.ok(providerService.getProviderById(id));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ProviderResponseDTO> createProvider(@RequestBody ProviderRequestDTO providerRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(providerService.createProvider(providerRequestDTO));
     }
@@ -47,3 +47,5 @@ public class ProvidersController {
     }
 
 }
+
+

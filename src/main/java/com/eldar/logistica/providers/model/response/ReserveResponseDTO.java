@@ -9,8 +9,8 @@ public class ReserveResponseDTO {
     private Long id;
     private String status;
     private Long commerceId;
-    private Integer quantity;
+    private Long quantity;
     private Long productId;
     private String brand;
-    private String model;
+    private Long model;
 }
