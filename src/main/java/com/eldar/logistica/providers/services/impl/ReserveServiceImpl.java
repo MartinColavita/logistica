@@ -7,7 +7,7 @@ import com.eldar.logistica.providers.domain.repositories.ReserveRepository;
 import com.eldar.logistica.providers.model.request.ReserveRequestDTO;
 import com.eldar.logistica.providers.model.response.ReserveResponseDTO;
 import com.eldar.logistica.providers.services.contracts.ReserveService;
-import com.eldar.logistica.providers.utils.mappers.Mapper;
+import com.eldar.logistica.providers.utils.mappers.MapperProviders;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class ReserveServiceImpl implements ReserveService {
         try {
             return reserveRepository.findAll()
                     .stream()
-                    .map(Mapper::toReserveResponseDTO)
+                    .map(MapperProviders::toReserveResponseDTO)
                     .collect(Collectors.toList());
         } catch (Exception e) {
             throw new RuntimeException("Error fetching all reserves", e);
@@ -43,7 +43,7 @@ public class ReserveServiceImpl implements ReserveService {
             Reserve reserve = reserveRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Reserve not found"));
 
-            return Mapper.toReserveResponseDTO(reserve);
+            return MapperProviders.toReserveResponseDTO(reserve);
         } catch (EntityNotFoundException e) {
             throw e;
         } catch (Exception e) {
@@ -58,9 +58,9 @@ public class ReserveServiceImpl implements ReserveService {
             Commerce commerce = commerceRepository.findById(reserveDTO.getCommerceId())
                     .orElseThrow(() -> new EntityNotFoundException("Commerce not found"));
 
-            Reserve reserve = Mapper.toReserveEntity(reserveDTO, commerce);
+            Reserve reserve = MapperProviders.toReserveEntity(reserveDTO, commerce);
             Reserve savedReserve = reserveRepository.save(reserve);
-            return Mapper.toReserveResponseDTO(savedReserve);
+            return MapperProviders.toReserveResponseDTO(savedReserve);
         } catch (Exception e) {
             throw new RuntimeException("Error creating reserve", e);
         }
@@ -83,7 +83,7 @@ public class ReserveServiceImpl implements ReserveService {
             reserve.setModel(reserveDTO.getModel());
 
             Reserve updatedReserve = reserveRepository.save(reserve);
-            return Mapper.toReserveResponseDTO(updatedReserve);
+            return MapperProviders.toReserveResponseDTO(updatedReserve);
         } catch (EntityNotFoundException e) {
             throw e;
         } catch (Exception e) {

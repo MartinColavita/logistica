@@ -10,4 +10,5 @@ public class AndreaniResponseDTO {
     private Long id;
     private String status;
     private String message;
+    private String trackingId;
 }

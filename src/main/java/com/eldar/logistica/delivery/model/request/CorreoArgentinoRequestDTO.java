@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor @NoArgsConstructor
-public class AndreaniRequestDTO {
+public class CorreoArgentinoRequestDTO {
     private Long id;
     private String status;
     private String trackingId;

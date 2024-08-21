@@ -1,8 +1,6 @@
 package com.eldar.logistica.services;
 
-import com.eldar.logistica.delivery.domain.entities.Andreani;
-import com.eldar.logistica.delivery.services.impl.AndreaniServiceImpl;
-import com.eldar.logistica.delivery.domain.repositories.AndreaniRepository;
+import com.eldar.logistica.delivery.services.impl.DeliveryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AndreaniServiceImplTest {
+public class DeliveryServiceImplTest {
 
     @Mock
     private AndreaniRepository andreaniRepository;
 
     @InjectMocks
-    private AndreaniServiceImpl andreaniService;
+    private DeliveryServiceImpl andreaniService;
 
     private Andreani andreani;
 

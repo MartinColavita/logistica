@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor @NoArgsConstructor
 @Data
-@Table(name = "Commerces")
-public class DeliveryToEldar {
+@Table(name = "Delivery")
+public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String contactDeliveryname;
+    private String trackingId;
 
 }

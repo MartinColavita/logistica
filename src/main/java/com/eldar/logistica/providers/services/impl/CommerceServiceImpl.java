@@ -5,7 +5,7 @@ import com.eldar.logistica.providers.domain.repositories.CommerceRepository;
 import com.eldar.logistica.providers.model.request.CommerceRequestDTO;
 import com.eldar.logistica.providers.model.response.CommerceResponseDTO;
 import com.eldar.logistica.providers.services.contracts.CommerceService;
-import com.eldar.logistica.providers.utils.mappers.Mapper;
+import com.eldar.logistica.providers.utils.mappers.MapperProviders;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -27,7 +27,7 @@ public class CommerceServiceImpl implements CommerceService {
         try {
             return commerceRepository.findAll()
                     .stream()
-                    .map(Mapper::toCommerceResponseDTO)
+                    .map(MapperProviders::toCommerceResponseDTO)
                     .collect(Collectors.toList());
         } catch (DataAccessException e) {
             throw new RuntimeException("Failed to fetch commerces", e);
@@ -40,7 +40,7 @@ public class CommerceServiceImpl implements CommerceService {
             Commerce commerce = commerceRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Commerce not found"));
 
-            return Mapper.toCommerceResponseDTO(commerce);
+            return MapperProviders.toCommerceResponseDTO(commerce);
         } catch (EntityNotFoundException e) {
             throw e;
         } catch (DataAccessException e) {
@@ -52,9 +52,9 @@ public class CommerceServiceImpl implements CommerceService {
     @Override
     public CommerceResponseDTO createCommerce(CommerceRequestDTO commerceDTO) {
         try {
-            Commerce commerce = Mapper.toCommerceEntity(commerceDTO);
+            Commerce commerce = MapperProviders.toCommerceEntity(commerceDTO);
             Commerce savedCommerce = commerceRepository.save(commerce);
-            return Mapper.toCommerceResponseDTO(savedCommerce);
+            return MapperProviders.toCommerceResponseDTO(savedCommerce);
         } catch (DataAccessException e) {
             throw new RuntimeException("Failed to create commerce", e);
         }
@@ -73,7 +73,7 @@ public class CommerceServiceImpl implements CommerceService {
             commerce.setContactClientName(commerceDTO.getContactClientName());
 
             Commerce updatedCommerce = commerceRepository.save(commerce);
-            return Mapper.toCommerceResponseDTO(updatedCommerce);
+            return MapperProviders.toCommerceResponseDTO(updatedCommerce);
         } catch (EntityNotFoundException e) {
             throw e;
         } catch (DataAccessException e) {

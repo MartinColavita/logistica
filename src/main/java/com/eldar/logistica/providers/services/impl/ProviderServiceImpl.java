@@ -5,7 +5,7 @@ import com.eldar.logistica.providers.domain.repositories.ProviderRepository;
 import com.eldar.logistica.providers.model.request.ProviderRequestDTO;
 import com.eldar.logistica.providers.model.response.ProviderResponseDTO;
 import com.eldar.logistica.providers.services.contracts.ProviderService;
-import com.eldar.logistica.providers.utils.mappers.Mapper;
+import com.eldar.logistica.providers.utils.mappers.MapperProviders;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class ProviderServiceImpl implements ProviderService {
         try {
             return providerRepository.findAll()
                     .stream()
-                    .map(Mapper::toProviderResponseDTO)
+                    .map(MapperProviders::toProviderResponseDTO)
                     .collect(Collectors.toList());
         } catch (Exception e) {
             throw new RuntimeException("Error fetching all providers", e);
@@ -39,7 +39,7 @@ public class ProviderServiceImpl implements ProviderService {
         try {
             Provider provider = providerRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Provider not found"));
-            return Mapper.toProviderResponseDTO(provider);
+            return MapperProviders.toProviderResponseDTO(provider);
         } catch (EntityNotFoundException e) {
             throw e;
         } catch (Exception e) {
@@ -51,9 +51,9 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public ProviderResponseDTO createProvider(ProviderRequestDTO providerDTO) {
         try {
-            Provider provider = Mapper.toProviderEntity(providerDTO);
+            Provider provider = MapperProviders.toProviderEntity(providerDTO);
             Provider savedProvider = providerRepository.save(provider);
-            return Mapper.toProviderResponseDTO(savedProvider);
+            return MapperProviders.toProviderResponseDTO(savedProvider);
         } catch (Exception e) {
             throw new RuntimeException("Error creating provider", e);
         }
@@ -70,7 +70,7 @@ public class ProviderServiceImpl implements ProviderService {
             provider.setContactVendorName(providerDTO.getContactVendorName());
 
             Provider updatedProvider = providerRepository.save(provider);
-            return Mapper.toProviderResponseDTO(updatedProvider);
+            return MapperProviders.toProviderResponseDTO(updatedProvider);
         } catch (EntityNotFoundException e) {
             throw e;
         } catch (Exception e) {

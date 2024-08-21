@@ -1,6 +1,6 @@
 package com.eldar.logistica.providers.domain.entities;
 
-import com.eldar.logistica.delivery.domain.entities.DeliveryToEldar;
+import com.eldar.logistica.delivery.domain.entities.Delivery;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,8 +27,8 @@ public class PurchaseOrder {
 
     /** Muchas órdenes de compra (PurchaseOrder) están asociadas a un único deliveryToEldar  */
     @ManyToOne
-    @JoinColumn(name = "deliveryToEldarId", nullable = false)
-    private DeliveryToEldar deliveryToEldar;
+    @JoinColumn(name = "deliveryId", nullable = false)
+    private Delivery delivery;
 
     @Column(nullable = false)
     private Date estimatedTime;

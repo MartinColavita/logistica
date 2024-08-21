@@ -1,8 +1,6 @@
 package com.eldar.logistica.controller;
 
-import com.eldar.logistica.delivery.controllers.AndreaniController;
-import com.eldar.logistica.delivery.domain.entities.Andreani;
-import com.eldar.logistica.delivery.services.contracts.AndreaniService;
+import com.eldar.logistica.delivery.controllers.DeliveryController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,13 +16,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AndreaniControllerTest {
+public class DeliveryControllerTest {
 
     @Mock
     private AndreaniService andreaniService;
 
     @InjectMocks
-    private AndreaniController andreaniController;
+    private DeliveryController deliveryController;
 
     private MockMvc mockMvc;
     private Andreani andreani;
@@ -32,7 +30,7 @@ public class AndreaniControllerTest {
 
     @BeforeEach
     public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(andreaniController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(deliveryController).build();
         andreani = new Andreani();
         andreani.setId(1L);
         andreani.setStatus("En camino");

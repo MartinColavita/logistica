@@ -1,6 +1,6 @@
 package com.eldar.logistica.providers.utils.mappers;
 
-import com.eldar.logistica.delivery.domain.entities.DeliveryToEldar;
+import com.eldar.logistica.delivery.domain.entities.Delivery;
 import com.eldar.logistica.providers.domain.entities.Commerce;
 import com.eldar.logistica.providers.domain.entities.Provider;
 import com.eldar.logistica.providers.domain.entities.PurchaseOrder;
@@ -15,7 +15,7 @@ import com.eldar.logistica.providers.model.response.PurchaseOrderResponseDTO;
 import com.eldar.logistica.providers.model.response.ReserveResponseDTO;
 
 
-public class Mapper {
+public class MapperProviders {
 
     public static ProviderResponseDTO toProviderResponseDTO(Provider provider) {
         return ProviderResponseDTO.builder()
@@ -80,17 +80,17 @@ public class Mapper {
         return PurchaseOrderResponseDTO.builder()
                 .id(purchaseOrder.getId())
                 .providerId(purchaseOrder.getProvider().getId())
-                .deliveryToEldarId(purchaseOrder.getDeliveryToEldar().getId())
+                .deliveryToEldarId(purchaseOrder.getDelivery().getId())
                 .estimatedTime(purchaseOrder.getEstimatedTime())
                 .status(purchaseOrder.getStatus())
                 .purchaseDate(purchaseOrder.getPurchaseDate())
                 .build();
     }
 
-    public static PurchaseOrder toPurchaseOrderEntity(PurchaseOrderRequestDTO dto, Provider provider, DeliveryToEldar deliveryToEldar) {
+    public static PurchaseOrder toPurchaseOrderEntity(PurchaseOrderRequestDTO dto, Provider provider, Delivery delivery) {
         return PurchaseOrder.builder()
                 .provider(provider)
-                .deliveryToEldar(deliveryToEldar)
+                .delivery(delivery)
                 .estimatedTime(dto.getEstimatedTime())
                 .status(dto.getStatus())
                 .purchaseDate(dto.getPurchaseDate())
