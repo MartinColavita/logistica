@@ -88,7 +88,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                     .orElseThrow(() -> new EntityNotFoundException("Delivery to Eldar not found"));
 
             purchaseOrder.setProvider(provider);
-            purchaseOrder.setDeliveryToEldar(delivery);
+            purchaseOrder.setDelivery(delivery);
             purchaseOrder.setEstimatedTime(purchaseOrderDTO.getEstimatedTime());
             purchaseOrder.setStatus(purchaseOrderDTO.getStatus());
             purchaseOrder.setPurchaseDate(purchaseOrderDTO.getPurchaseDate());

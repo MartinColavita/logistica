@@ -14,10 +14,10 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     @Bean
-    public GroupedOpenApi andreaniApi() {
+    public GroupedOpenApi deliveryApi() {
         return GroupedOpenApi.builder()
                 .group("Delivery")
-                .packagesToScan("com.eldar.logistica.deliveryToEldar.controllers")
+                .packagesToScan("com.eldar.logistica.delivery.controllers")
                 .build();
     }
 
