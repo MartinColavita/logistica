@@ -129,7 +129,7 @@ public class DeliveryController {
 
 
     /** Métodos específicos de Andreani */
-    @GetMapping("/{id}/staus/andreani")
+    @GetMapping("/{id}/status/andreani")
     @Operation(
             summary = "Obtener el estado del pedido de Andreani",
             description = "Recupera el estado de un pedido por su ID.",

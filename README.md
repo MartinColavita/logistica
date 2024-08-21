@@ -61,3 +61,16 @@ Para realizar pruebas con la base de datos en memoria H2, utiliza las siguientes
 - **JDBC URL:** `jdbc:h2:mem:testdb`
 - **User Name:** `prueba`
 - **Password:** `password`
+
+
+## Pruebas Unitarias
+
+El proyecto incluye pruebas unitarias para verificar el correcto funcionamiento de los servicios de terceros y los controladores.
+
+### Pruebas de Servicios de Terceros
+
+Se han implementado pruebas unitarias para los servicios de terceros (Andreani, OCA y Correo Argentino) en la clase `DeliveryServiceImplTest`. Estas pruebas aseguran que los métodos que interactúan con las APIs de terceros funcionen correctamente.
+
+### Pruebas de Controladores
+
+Las pruebas unitarias para los controladores se encuentran en la clase `DeliveryControllerTest`. Estas pruebas verifican que los endpoints del controlador respondan correctamente a las solicitudes HTTP y devuelvan los datos esperados.
